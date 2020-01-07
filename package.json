@@ -9,6 +9,7 @@
   },
   "scripts": {
     "deploy": "prisma deploy",
-    "playground": "prisma playground"
+    "playground": "prisma playground",
+    "dev": "nodemon ./src/server.js"
   }
 }
