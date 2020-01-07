@@ -13,5 +13,5 @@ type Task {
   id: ID! @id
   title: String!
   project: Project!
-  inCompleted: Boolean! @default(value: "false")
+  inCompleted: Boolean! @default(value: false)
 }
