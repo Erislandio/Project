@@ -4,13 +4,13 @@ type User {
 }
 
 type Project {
-  id: ID! @unique
+  id: ID! @id
   name: String!
   tasks: [Task!]!
 }
 
 type Task {
-  id: ID! @unique
+  id: ID! @id
   title: String!
   project: Project!
   inCompleted: Boolean! @default(value: "false")
