@@ -1,17 +1,8 @@
 type User {
   id: ID! @id
   name: String!
-}
-
-type Project {
-  id: ID! @id
-  name: String!
-  tasks: [Task!]!
-}
-
-type Task {
-  id: ID! @id
-  title: String!
-  project: Project!
-  inCompleted: Boolean! @default(value: false)
+  lastname: String!
+  phone: String!
+  document: String!
+  email: String!
 }

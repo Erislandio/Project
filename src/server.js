@@ -1,13 +1,17 @@
 const { GraphQLServer } = require("graphql-yoga");
 const { prisma } = require("../generated/prisma-client");
+const chalk = require('chalk')
 const resolvers = require("./resolvers/index");
 
 const server = new GraphQLServer({
-  typeDefs: "./src/schema.graphql",
+  typeDefs: "./src/graphql/schema.graphql",
   resolvers,
-  context: {
-    prisma
+  context: request => {
+    return {
+      ...request,
+      prisma
+    };
   }
 });
 
-server.start(() => console.log(`Server online`));
+server.start(() => console.log(chalk.green.bold.underline(`server online http://localhost:4000`)));

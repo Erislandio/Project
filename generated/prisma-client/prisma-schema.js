@@ -3,15 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateProject {
-  count: Int!
-}
-
-type AggregateTask {
-  count: Int!
-}
-
-type AggregateUser {
+/* GraphQL */ `type AggregateUser {
   count: Int!
 }
 
@@ -22,18 +14,6 @@ type BatchPayload {
 scalar Long
 
 type Mutation {
-  createProject(data: ProjectCreateInput!): Project!
-  updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
-  updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
-  upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
-  deleteProject(where: ProjectWhereUniqueInput!): Project
-  deleteManyProjects(where: ProjectWhereInput): BatchPayload!
-  createTask(data: TaskCreateInput!): Task!
-  updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task
-  updateManyTasks(data: TaskUpdateManyMutationInput!, where: TaskWhereInput): BatchPayload!
-  upsertTask(where: TaskWhereUniqueInput!, create: TaskCreateInput!, update: TaskUpdateInput!): Task!
-  deleteTask(where: TaskWhereUniqueInput!): Task
-  deleteManyTasks(where: TaskWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -59,136 +39,7 @@ type PageInfo {
   endCursor: String
 }
 
-type Project {
-  id: ID!
-  name: String!
-  tasks(where: TaskWhereInput, orderBy: TaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Task!]
-}
-
-type ProjectConnection {
-  pageInfo: PageInfo!
-  edges: [ProjectEdge]!
-  aggregate: AggregateProject!
-}
-
-input ProjectCreateInput {
-  id: ID
-  name: String!
-  tasks: TaskCreateManyWithoutProjectInput
-}
-
-input ProjectCreateOneWithoutTasksInput {
-  create: ProjectCreateWithoutTasksInput
-  connect: ProjectWhereUniqueInput
-}
-
-input ProjectCreateWithoutTasksInput {
-  id: ID
-  name: String!
-}
-
-type ProjectEdge {
-  node: Project!
-  cursor: String!
-}
-
-enum ProjectOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-}
-
-type ProjectPreviousValues {
-  id: ID!
-  name: String!
-}
-
-type ProjectSubscriptionPayload {
-  mutation: MutationType!
-  node: Project
-  updatedFields: [String!]
-  previousValues: ProjectPreviousValues
-}
-
-input ProjectSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: ProjectWhereInput
-  AND: [ProjectSubscriptionWhereInput!]
-}
-
-input ProjectUpdateInput {
-  name: String
-  tasks: TaskUpdateManyWithoutProjectInput
-}
-
-input ProjectUpdateManyMutationInput {
-  name: String
-}
-
-input ProjectUpdateOneRequiredWithoutTasksInput {
-  create: ProjectCreateWithoutTasksInput
-  update: ProjectUpdateWithoutTasksDataInput
-  upsert: ProjectUpsertWithoutTasksInput
-  connect: ProjectWhereUniqueInput
-}
-
-input ProjectUpdateWithoutTasksDataInput {
-  name: String
-}
-
-input ProjectUpsertWithoutTasksInput {
-  update: ProjectUpdateWithoutTasksDataInput!
-  create: ProjectCreateWithoutTasksInput!
-}
-
-input ProjectWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  tasks_some: TaskWhereInput
-  AND: [ProjectWhereInput!]
-}
-
-input ProjectWhereUniqueInput {
-  id: ID
-}
-
 type Query {
-  project(where: ProjectWhereUniqueInput!): Project
-  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
-  projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
-  task(where: TaskWhereUniqueInput!): Task
-  tasks(where: TaskWhereInput, orderBy: TaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Task]!
-  tasksConnection(where: TaskWhereInput, orderBy: TaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TaskConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -196,205 +47,16 @@ type Query {
 }
 
 type Subscription {
-  project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
-  task(where: TaskSubscriptionWhereInput): TaskSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type Task {
-  id: ID!
-  title: String!
-  project: Project!
-  inCompleted: Boolean!
-}
-
-type TaskConnection {
-  pageInfo: PageInfo!
-  edges: [TaskEdge]!
-  aggregate: AggregateTask!
-}
-
-input TaskCreateInput {
-  id: ID
-  title: String!
-  project: ProjectCreateOneWithoutTasksInput!
-  inCompleted: Boolean
-}
-
-input TaskCreateManyWithoutProjectInput {
-  create: [TaskCreateWithoutProjectInput!]
-  connect: [TaskWhereUniqueInput!]
-}
-
-input TaskCreateWithoutProjectInput {
-  id: ID
-  title: String!
-  inCompleted: Boolean
-}
-
-type TaskEdge {
-  node: Task!
-  cursor: String!
-}
-
-enum TaskOrderByInput {
-  id_ASC
-  id_DESC
-  title_ASC
-  title_DESC
-  inCompleted_ASC
-  inCompleted_DESC
-}
-
-type TaskPreviousValues {
-  id: ID!
-  title: String!
-  inCompleted: Boolean!
-}
-
-input TaskScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  inCompleted: Boolean
-  inCompleted_not: Boolean
-  AND: [TaskScalarWhereInput!]
-  OR: [TaskScalarWhereInput!]
-  NOT: [TaskScalarWhereInput!]
-}
-
-type TaskSubscriptionPayload {
-  mutation: MutationType!
-  node: Task
-  updatedFields: [String!]
-  previousValues: TaskPreviousValues
-}
-
-input TaskSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: TaskWhereInput
-  AND: [TaskSubscriptionWhereInput!]
-}
-
-input TaskUpdateInput {
-  title: String
-  project: ProjectUpdateOneRequiredWithoutTasksInput
-  inCompleted: Boolean
-}
-
-input TaskUpdateManyDataInput {
-  title: String
-  inCompleted: Boolean
-}
-
-input TaskUpdateManyMutationInput {
-  title: String
-  inCompleted: Boolean
-}
-
-input TaskUpdateManyWithoutProjectInput {
-  create: [TaskCreateWithoutProjectInput!]
-  delete: [TaskWhereUniqueInput!]
-  connect: [TaskWhereUniqueInput!]
-  set: [TaskWhereUniqueInput!]
-  disconnect: [TaskWhereUniqueInput!]
-  update: [TaskUpdateWithWhereUniqueWithoutProjectInput!]
-  upsert: [TaskUpsertWithWhereUniqueWithoutProjectInput!]
-  deleteMany: [TaskScalarWhereInput!]
-  updateMany: [TaskUpdateManyWithWhereNestedInput!]
-}
-
-input TaskUpdateManyWithWhereNestedInput {
-  where: TaskScalarWhereInput!
-  data: TaskUpdateManyDataInput!
-}
-
-input TaskUpdateWithoutProjectDataInput {
-  title: String
-  inCompleted: Boolean
-}
-
-input TaskUpdateWithWhereUniqueWithoutProjectInput {
-  where: TaskWhereUniqueInput!
-  data: TaskUpdateWithoutProjectDataInput!
-}
-
-input TaskUpsertWithWhereUniqueWithoutProjectInput {
-  where: TaskWhereUniqueInput!
-  update: TaskUpdateWithoutProjectDataInput!
-  create: TaskCreateWithoutProjectInput!
-}
-
-input TaskWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  project: ProjectWhereInput
-  inCompleted: Boolean
-  inCompleted_not: Boolean
-  AND: [TaskWhereInput!]
-}
-
-input TaskWhereUniqueInput {
-  id: ID
 }
 
 type User {
   id: ID!
   name: String!
+  lastname: String!
+  phone: String!
+  document: String!
+  email: String!
 }
 
 type UserConnection {
@@ -406,6 +68,10 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   name: String!
+  lastname: String!
+  phone: String!
+  document: String!
+  email: String!
 }
 
 type UserEdge {
@@ -418,11 +84,23 @@ enum UserOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  lastname_ASC
+  lastname_DESC
+  phone_ASC
+  phone_DESC
+  document_ASC
+  document_DESC
+  email_ASC
+  email_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
+  lastname: String!
+  phone: String!
+  document: String!
+  email: String!
 }
 
 type UserSubscriptionPayload {
@@ -443,10 +121,18 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   name: String
+  lastname: String
+  phone: String
+  document: String
+  email: String
 }
 
 input UserUpdateManyMutationInput {
   name: String
+  lastname: String
+  phone: String
+  document: String
+  email: String
 }
 
 input UserWhereInput {
@@ -478,6 +164,62 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  lastname: String
+  lastname_not: String
+  lastname_in: [String!]
+  lastname_not_in: [String!]
+  lastname_lt: String
+  lastname_lte: String
+  lastname_gt: String
+  lastname_gte: String
+  lastname_contains: String
+  lastname_not_contains: String
+  lastname_starts_with: String
+  lastname_not_starts_with: String
+  lastname_ends_with: String
+  lastname_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  document: String
+  document_not: String
+  document_in: [String!]
+  document_not_in: [String!]
+  document_lt: String
+  document_lte: String
+  document_gt: String
+  document_gte: String
+  document_contains: String
+  document_not_contains: String
+  document_starts_with: String
+  document_not_starts_with: String
+  document_ends_with: String
+  document_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
   AND: [UserWhereInput!]
 }
 
